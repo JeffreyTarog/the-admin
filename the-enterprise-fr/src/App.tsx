@@ -2,17 +2,20 @@ import { BrowserRouter } from 'react-router-dom';
 import AppRoutes from './router/main'; // Adjust the path accordingly
 import './assets/base.css'
 
+import { Provider } from 'react-redux';
+import store from './stores/misc/store';
+
+// Components
+
 function App() {
   return (
-    <BrowserRouter>
-      <div className="App">
-        <div className="flex h-screen w-screen bg-slate-200 dark:bg-slate-800">
-          <div className="flex flex-col w-full h-full overflow-y-auto transition-all duration-150">
-            <AppRoutes />
-          </div>
+    <Provider store={store}>
+      <BrowserRouter>
+        <div className="App">
+          <AppRoutes />
         </div>
-      </div>
-    </BrowserRouter>
+      </BrowserRouter>
+    </Provider>
   );
 }
 
