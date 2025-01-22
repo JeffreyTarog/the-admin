@@ -5,7 +5,7 @@ import LandingPage from '../views/backyard/LandingPage.tsx'
 import PageNotFound from '../views/backyard/PageNotFound.tsx';
 
 // External Routes
-import hrisRoutes from './hris/hrisRoutes.tsx'
+import hrisRoutes from './hris/hrisRoutes.tsx';
 
 const backyardRoutes: RouteObject[] = [
   {
@@ -14,22 +14,34 @@ const backyardRoutes: RouteObject[] = [
   },
   // 404 Page not Found
   {
-    path: '/:pathMatch(.*)*',
+    path: '/:pathMatch(.*)/*',
     element: <PageNotFound/>
   },
 ];
 
-const allRoutes: RouteObject[] = [
+const parentRoutes: RouteObject[] = [
   ...backyardRoutes,
   ...hrisRoutes
 ];
 
+/**
+ * Recursive function to render nested routes
+ */
+const renderRoutes = (routes: RouteObject[]) => {
+  return routes.map((route, index) => {
+    const { path, element, children } = route;
+    return (
+      <Route key={index} path={path} element={element}>
+        {children && renderRoutes(children)}
+      </Route>
+    );
+  });
+};
+
 const AppRoutes: React.FC = () => {
   return (
     <Routes>
-      {allRoutes.map((route, index) => (
-        <Route key={index} path={route.path} element={route.element} />
-      ))},
+      {renderRoutes(parentRoutes)}
       <Route path="*" element={<PageNotFound />} />
     </Routes>
   );
