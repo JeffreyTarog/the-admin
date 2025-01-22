@@ -1,12 +1,17 @@
 import { RouteObject } from 'react-router-dom';
 
-// Pages
-import DashboardPage from '../../views/hris/DashboardPage';
+import coreHRRoutes from './coreHRRoutes'
+
+// HRIS System Layout
+import HRISLayout from '../../components/hris/misc/HRISLayout';
 
 const hrisRoutes: RouteObject[] = [
   {
-    path: '/hris/dashboard',
-    element: <DashboardPage/>,
+    path: '/hris',
+    element: <HRISLayout />,
+    children: [
+      ...coreHRRoutes,
+    ],
   },
 ];
 
