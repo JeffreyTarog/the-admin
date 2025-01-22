@@ -1,12 +1,12 @@
 // import { Outlet } from "react-router-dom";
-import Sidebar from "./Sidebar";
+import Sidebar, { SidebarItems, SidebarSubmenuItems } from "./Sidebar";
 
 import Navbar from "./Navbar";
 import { Outlet } from "react-router-dom";
 
-// type LayoutProps = {
-//   children: React.ReactNode
-// }
+import {
+  ChartPie,
+} from "lucide-react";
 
 const HRISLayout: React.FC = () => {
   return (
@@ -14,7 +14,10 @@ const HRISLayout: React.FC = () => {
       <div className="flex w-screen h-screen overflow-x-hidden">
         <div className="flex w-full h-full overflow-y-auto">
           <Sidebar>
-            {/* Menu and Submenu Items */}
+            <SidebarItems icon={<ChartPie size={20}/>} text="Core HR" alert={false} >
+                <SidebarSubmenuItems text="Employee Management" link="/hris/core-hr/employee-management"/>
+                <SidebarSubmenuItems text="User Access & Roles" link="/hris/core-hr/user-access-roles"/>
+            </SidebarItems>
           </Sidebar>
           <div className="flex-1 h-full w-full">
             <div className="flex flex-col w-full h-full">
