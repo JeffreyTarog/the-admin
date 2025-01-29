@@ -11,8 +11,64 @@
     <!-- End Application Font -->
     <title>Anex Cloud</title>
   </head>
+  <style>
+    /* Preloader styles */
+    #preloader {
+      position: fixed;
+      width: 100%;
+      height: 100%;
+      background: #f1f5f9;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: opacity 0.5s ease;
+    }
+
+    .spinner {
+      width: 50px;
+      height: 50px;
+      border: 5px solid rgba(0, 0, 0, 0.1);
+      border-left-color: #f76b0a;
+      border-radius: 50%;
+      animation: spin 1s linear infinite;
+    }
+
+    @keyframes spin {
+      100% {
+        transform: rotate(360deg);
+      }
+    }
+
+    /* Dark mode styles */
+    @media (prefers-color-scheme: dark) {
+      #preloader {
+        background: #1e293b;
+      }
+      .spinner {
+        border-color: rgba(255, 255, 255, 0.1);
+        border-left-color: #f76b0a;
+      }
+    }
+  </style>
   <body>
+    <!-- Preloader -->
+    <div id="preloader">
+      <div class="spinner slate-"></div>
+    </div>
+    <!-- End Preloader -->
+
     <div id="root"></div>
     <script type="module" src="/src/main.tsx"></script>
+
+    <script>
+      // Remove preloader once React is fully loaded
+      window.onload = function () {
+        const preloader = document.getElementById("preloader");
+        if (preloader) {
+          preloader.style.opacity = "0";
+          setTimeout(() => preloader.remove(), 500);
+        }
+      };
+    </script>
   </body>
 </html>
